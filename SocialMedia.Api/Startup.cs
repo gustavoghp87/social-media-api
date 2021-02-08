@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SocialMedia.Core.Data;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Infrastructure.Repositories;
 
@@ -31,6 +33,9 @@ namespace SocialMedia.Api
 
             // inyección de dependencia: cambiando PostRepository por PostMongoRepository cambia todo
 
+            services.AddDbContext<SocialMediaContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SocialMedia"))
+            );
             services.AddTransient<IPostRepository, PostRepository>();
             //services.AddTransient<IPostRepository, PostMongoRepository>();
         }
