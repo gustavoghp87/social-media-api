@@ -14,10 +14,10 @@ namespace SocialMedia.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<Publicacion>> GetPosts()
+        public async Task<IEnumerable<Post>> GetPosts()
         {
-            var posts = await _context.Publicacion.ToListAsync();
-            //var posts = Enumerable.Range(1, 10).Select(x => new Post
+            var posts = await _context.Posts.ToListAsync();
+            //var posts = Enumerable.Range(1, 10).Select(x => new PostDeprecated
             //{
             //    PostId = x,
             //    Description = $"Description {x}",
@@ -27,6 +27,11 @@ namespace SocialMedia.Infrastructure.Repositories
             //});
             //await Task.Delay(10);
             return posts;
+        }
+        public async Task<Post> GetPosts(int id)
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(x => x.PostId == id);
+            return post;
         }
     }
 }

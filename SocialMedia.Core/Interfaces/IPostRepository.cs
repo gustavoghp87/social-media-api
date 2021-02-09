@@ -7,7 +7,8 @@ namespace SocialMedia.Core.Interfaces
 {
     public interface IPostRepository
     {
-        //Task<IEnumerable<Post>> GetPosts();
-        Task<IEnumerable<Publicacion>> GetPosts();
+        //Task<IEnumerable<PostDeprecated>> GetPosts();
+        Task<IEnumerable<Post>> GetPosts();
+        Task<Post> GetPosts(int id);
     }
 }

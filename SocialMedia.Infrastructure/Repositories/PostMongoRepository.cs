@@ -9,9 +9,9 @@ namespace SocialMedia.Infrastructure.Repositories
 {
     //public class PostMongoRepository : IPostRepository
     //{
-    //    public async Task<IEnumerable<Post>> GetPosts()
+    //    public async Task<IEnumerable<PostDeprecated>> GetPosts()
     //    {
-    //        var posts = Enumerable.Range(1, 10).Select(x => new Post
+    //        var posts = Enumerable.Range(1, 10).Select(x => new PostDeprecated
     //        {
     //            PostId = x,
     //            Description = $"Description MONGO {x}",
