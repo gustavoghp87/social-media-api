@@ -10,5 +10,6 @@ namespace SocialMedia.Core.Interfaces
         //Task<IEnumerable<PostDeprecated>> GetPosts();
         Task<IEnumerable<Post>> GetPosts();
         Task<Post> GetPosts(int id);
+        Task InsertPost(Post post);
     }
 }
