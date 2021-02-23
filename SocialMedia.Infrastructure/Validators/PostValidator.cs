@@ -14,7 +14,7 @@ namespace SocialMedia.Infrastructure.Validators
 
             RuleFor(post => post.Description)
                 .NotNull()
-                .Length(1, 3);
+                .Length(1, 500);
         }
     }
 }
