@@ -1,13 +1,11 @@
 ﻿using SocialMedia.Core.Data;
-//using SocialMedia.Core.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SocialMedia.Core.Interfaces
+namespace SocialMedia.Core.Services
 {
-    public interface IPostRepository
+    public interface IPostService
     {
-        //Task<IEnumerable<PostDeprecated>> GetPosts();
         Task<IEnumerable<Post>> GetPosts();
         Task<Post> GetPost(int id);
         Task InsertPost(Post post);

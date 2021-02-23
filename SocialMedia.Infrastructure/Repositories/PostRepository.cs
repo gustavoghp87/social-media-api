@@ -14,7 +14,7 @@ namespace SocialMedia.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<Post>> GetPost()
+        public async Task<IEnumerable<Post>> GetPosts()
         {
             var posts = await _context.Posts.ToListAsync();
             //var posts = Enumerable.Range(1, 10).Select(x => new PostDeprecated
