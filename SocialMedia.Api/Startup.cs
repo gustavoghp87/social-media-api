@@ -8,7 +8,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SocialMedia.Core.Data;
 using SocialMedia.Core.Interfaces;
-using SocialMedia.Core.Repositories;
 using SocialMedia.Core.Services;
 using SocialMedia.Infrastructure.Filters;
 using SocialMedia.Infrastructure.Repositories;
@@ -60,9 +59,11 @@ namespace SocialMedia.Api
             );
 
             //services.AddTransient<IPostRepository, PostMongoRepository>();
-            services.AddTransient<IPostRepository, PostRepository>();
+            //services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<IPostService, PostService>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            // services.AddTransient<IUserRepository, UserRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services
                 .AddMvc(options => {

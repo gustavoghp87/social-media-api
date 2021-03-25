@@ -1,6 +1,5 @@
 ﻿using SocialMedia.Core.Data;
 using SocialMedia.Core.Interfaces;
-using SocialMedia.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,27 +8,29 @@ namespace SocialMedia.Core.Services
 {
     public class PostService : IPostService
     {
-        private readonly IPostRepository _postRepository;
-        private readonly IUserRepository _userRepository;
-        public PostService(IPostRepository postRepository, IUserRepository userRepository)
+        // private readonly IPostRepository _postRepository;
+        // private readonly IUserRepository _userRepository;
+        // private readonly IRepository<Post> _postRepository;
+        // private readonly IRepository<User> _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        public PostService(IUnitOfWork unitOfWork)
         {
-            _postRepository = postRepository;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Post> GetPost(int id)
         {
-            return await _postRepository.GetPost(id);
+            return await _unitOfWork.PostRepository.GetById(id);
         }
 
         public async Task<IEnumerable<Post>> GetPosts()
         {
-            return await _postRepository.GetPosts();
+            return await _unitOfWork.PostRepository.GetAll();
         }
 
         public async Task InsertPost(Post post)
         {
-            var user = await _userRepository.GetUser(post.UserId);
+            var user = await _unitOfWork.UserRepository.GetById(post.UserId);
             if (user==null)
             {
                 throw new Exception("User doesn't exist");
@@ -38,22 +39,24 @@ namespace SocialMedia.Core.Services
             {
                 throw new Exception("Content not allowed");
             }
-            await _postRepository.InsertPost(post);
+            await _unitOfWork.PostRepository.Add(post);
         }
 
-        public async Task InsertPosts(Post post)
-        {
-            await _postRepository.InsertPost(post);
-        }
+        //public async Task InsertPosts(Post post)
+        //{
+        //    await _postRepository.Add(post);
+        //}
 
         public async Task<bool> UpdatePost(Post post)
         {
-            return await _postRepository.UpdatePost(post);
+            await _unitOfWork.PostRepository.Update(post);
+            return true;
         }
 
         public async Task<bool> DeletePost(int id)
         {
-            return await _postRepository.DeletePost(id);
+            await _unitOfWork.PostRepository.Delete(id);
+            return true;
         }
     }
 }
